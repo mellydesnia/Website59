@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Pengumuman - SMP NEGERI 59 KOTA BANDUNG</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="resources\images\logo.ico" rel='shortcut icon'>
+    <link href="https://fonts.googleapis.com/css?family=Righteous&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="main.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <link href="resources\css\style.css?version=<?php echo filemtime('resources\css\style.css'); ?>" rel="stylesheet">
+</head>
+
+
+<div class="display">
+<img src="resources\images\logo59.jpg" alt="" height="180px" width="400px">
+</div>
+
+
+<nav class='navmenu'>
+  <ul>
+  <li><a href="index.php">Home</a></li>
+  <li class='submenu'><a href="#">Akademik ˅ </a>
+    <ul class='dropdown'>
+        <li><a href="guru.php"> Data Guru</a></li>
+        <li><a href="galery.php">Gallery</a></li>
+        <li><a href="kaldik.php">Kalender Akademik</a></li>
+        <li><a href="fasilitas.php">Fasilitas</a></li>
+        <li><a href="eskul.php">Ekstrakulikuler</a></li>
+    </ul>
+</li>
+    
+<li class='submenu'><a href="#">OSIS ˅ </a>
+    <ul class='dropdown'>
+        <li><a href="profil.php">Profil OSIS</a></li>
+        <li><a href="artikel.php"> Kegiatan OSIS</a></li>
+        
+    </ul>
+</li>
+  <li><a href="pengumuman.php">Pengumuman</a></li>
+  <li><a href="buku_tamu.php">Buku Tamu</a></li>
+  <li><a href="visi_misi.php">Visi Misi</a></li>
+  <li><a href="minat.php">Minat</a></li>
+  <li><a href="kontak_kami.php">Kontak Kami</a></li>
+  <li><a href="bot.php">Hub Admin</a></li>
+
+  </ul>
+</nav>
+
+<head>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<style type="text/css">
+  .card {
+    margin-top: 50px;
+    margin-left: 20px;
+    text-align: center;
+    line-height: 20px;
+    border-radius: 20px;
+  }
+  .card-title h4{
+    font-size: 25px;
+  }
+  .card-text{
+    font-size: 16px;
+    text-align: justify;
+  }
+  .wpp {
+    font-size: 15px;
+    text-align: center;
+  }
+  .card:hover {
+    border: 1px solid #1C90F3;
+    }
+  .wpp h1 {
+    font-size: 10px;
+  }
+  .card-img-top {
+      margin-top: 10px;
+      height: 300px;
+      width: 550px;
+      margin: 0 auto;
+   
+  }
+</style>
+
+<br><br><br>
+<body>
+
+<div class="container">
+    <h2 align="center">Pengumuman</h2>
+    <hr>
+    <br>
+    <div class="row" id="load_data">
+      <?php
+        include 'koneksi.php';
+        $query = "SELECT * FROM tbl_pengumuman ORDER BY id ASC";
+        $dewan1 = $koneksi->prepare($query);
+        $dewan1->execute();
+        $res1 = $dewan1->get_result();
+        while ($row = $res1->fetch_assoc()) {
+          $id = $row["id"];
+          $tgl_input = $row["tgl_input"];
+          $tgl = $row["tgl"];
+          $waktu = $row["waktu"];
+          $foto = $row["foto"];
+          $judul = $row["judul"];
+          if (strlen($judul) > 160) {
+            $judul = substr($judul, 0, 160) . "...";
+          }
+          $deskripsi = $row["deskripsi"];
+          if (strlen($deskripsi) > 1000) {
+            $deskripsi = substr($deskripsi, 0, 1000) . "...";
+          }
+      ?>
+
+
+
+<div class="card">
+<img src="fotokegiatan/<?= $row['foto'] ?>" alt="gambar" width="40%" height="60%" style="display: block; margin: 0 auto; margin-top: 20px; border-radius: 20px;" >
+
+
+	<div class="card-body">
+		<div class="card-title"><h4><?=$judul;?></h4></div>
+
+		<p class="card-text"><?=$deskripsi;?></p>
+
+    <div class="wpp">
+    Waktu Pelaksanaan :<?=$waktu;?><br> Tanggal Pelaksanaan : <?=$tgl;?><br><br>
+
+    <h1>Diposting Pada : <time><?=$tgl_input;?></time></h1>
+    </div>
+	</div>
+
+</div>
+
+      <?php } ?>
+
+    </div>
+</div>
+
+</body>
+
+
+<br><br><br>
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<div class="footer">
+	<div class="footer1">
+<div class="container-fluid">
+	
+	<div class="container ">
+	<div class="row">
+		<div class="col-sm-4">
+		  <p>
+            <div class="myframegmap"> 
+                <img src="resources\images\logo.ico" alt="">
+            </div></p><br>
+		</div>
+		<div class="col-sm-4 ">
+			<h2>Contact Us</h2>
+			<p >
+			 
+				<i class="fa fa-phone"></i> (022)63746448</a><br>
+				<i class="fa fa-envelope"></i>  smpn59bandung@gmail.com</a><br>
+				<i class="fa fa-map-marker"></i>    Jl. Cicabe
+			</p>
+				
+			<br>
+		</div>
+        <div class="col-sm-4">
+		  <p>
+            <div class="myframegmap"> 
+                <img src="resources\images\tutwurihandayani.ico" alt="" width="220px" height="220px">
+            </div></p><br>
+		</div>
+	</div>
+		<div class="clear30"></div>
+</div>
+</div></div>
+
+
+<div class="footer2">
+	<div class="container-fluid">
+	<div class="container">
+		<div class="row">
+			<div class="clear30"></div>
+			<div class="col-sm-12 text-center"><p><strong>copyright © 2021 Melly Desnia</strong></p></div>
+			<div class="clear30"></div>
+		</div>
+		
+	</div>
+	
+</div>
+</div>
+</div>
+<!--footer end-->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  
+  <!-- Font Awesome 5 links-->
+  <script src="https://kit.fontawesome.com/fddf5c0916.js" crossorigin="anonymous"></script>
+<!--Grid row-->
+   
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+        <script  src="resources\js\funcation.js"></script>
+
+</html>
